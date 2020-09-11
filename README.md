@@ -19,7 +19,7 @@ Having `cjpeg` is optional and will be used if available to reduze the image siz
 ## Usage
 Connect the Pro2 either via WiFi or a network cable to your computer and mount the Samba share.
 ```
-./run /path/to/the/mounted/sdcard/
+./run.sh /path/to/the/mounted/sdcard/
 ```
 
 It doesn't matter which folder level you exactly provide because the tool will run through it recursively and just look for all files called 'pano.jpg'.
