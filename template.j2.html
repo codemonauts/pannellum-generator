@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panoramatest</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <style>
+        .panorama {
+            width: 90vw;
+            height: 90vh;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="panorama" id="example1"></div>
+
+    <script>
+        viewer = pannellum.viewer('example1', {
+            "default": {
+                "firstScene": "{{ first_scene }}",
+                "autoLoad": true,
+                "sceneFadeDuration": 500
+            },
+            "scenes": {
+                {% for scene in scenes %}
+                "{{ scene }}": {
+                    "type": "equirectangular",
+                    "panorama": "/assets/{{ scene }}.jpg",
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hfov": 100,
+                    "hotSpots": [
+                        {
+                            "pitch": 0,
+                            "yaw": 0,
+                            "type": "scene",
+                            "text": "Test",
+                            "sceneId": "{{first_scene}}"
+                        },
+                    ]
+                },
+                {% endfor %}
+            }
+        });
+
+        // For easier generation of hotspots. Nicer output than the normal hotspotDebug mode
+        viewer.on("mousedown", function (event) {
+            let [pitch, yaw] = viewer.mouseEventToCoords(event);
+            yaw = yaw.toFixed(1);
+            pitch = pitch.toFixed(1);
+            console.log(`Click: P:${pitch} Y:${yaw}`);
+        })
+
+        viewer.on("animatefinished", function (position) {
+            yaw = position.yaw.toFixed(1);
+            pitch = position.pitch.toFixed(1);
+            hfov = position.hfov;
+            console.log(`Viewport: P:${pitch} Y:${yaw} FOV:${hfov}°`);
+        })
+
+    </script>
+
+</body>
+
+</html>
