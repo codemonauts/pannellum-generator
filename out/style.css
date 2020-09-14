@@ -1,46 +1,103 @@
-        html,
-        body {
-            padding: 0;
-            margin: 0;
-        }
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
 
-        .button {
-            background: lightskyblue;
-            font-size: 1.2rem;
-            padding: 4px;
-            margin: 2px;
-            border-radius: 3px;
-        }
+.button {
+    background: lightskyblue;
+    font-size: 1.2rem;
+    padding: 4px;
+    margin: 2px;
+    border-radius: 3px;
+}
 
-        .panorama {
-            height: 100%;
-            width: 100%;
-        }
+.panorama {
+    height: 100%;
+    width: 100%;
+}
 
-        .red {
-            background-color: red;
-        }
+.red {
+    background-color: red;
+}
 
-        #sceneList {
-            margin-bottom: 10px;
-        }
+#sceneList {
+    margin-bottom: 10px;
+}
 
-        #config {
-            background-color: lightgray;
-            margin: 0;
-            font-family: monospace;
-            overflow: auto;
-            width: 30vw;
-            height: 90vh;
-        }
+#config {
+    background-color: lightgray;
+    margin: 0;
+    font-family: monospace;
+    overflow: auto;
+    width: 30vw;
+    height: 90vh;
+}
 
-        #editContainer {
-            display: flex;
-            width: 100vw;
-            height: 90vh;
-            overflow: none;
-        }
+#editContainer {
+    display: flex;
+    width: 100vw;
+    height: 90vh;
+    overflow: none;
+}
 
-        #labelInput {
-            font-size: 1.2rem;
-        }
+#labelInput {
+    font-size: 1.2rem;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+ #controls {
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 3px;
+}
+.ctrl {
+    padding: 8px 5px;
+    width: 30px;
+    text-align: center;
+    background: rgba(200, 200, 200, 0.8);
+    display: inline-block;
+    cursor: pointer;
+}
