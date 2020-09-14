@@ -7,24 +7,39 @@
     <title>Panoramatest</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-    <style>
-        .panorama {
-            width: 90vw;
-            height: 90vh;
-            margin: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <div class="panorama" id="example1"></div>
+    <div id="sceneList">
+        {% for scene in scenes %}
+        <a class="button" onclick="switchTo('{{scene}}')">{{scene}}</a>
+        {% endfor %}
+    </div>
+    <div id="help">
+        <ul>
+            <li> Ctrl+Left click = Info Hotspot </li>
+            <li> Shift+Left click = Scene Hotspot </li>
+
+        </ul>
+    </div>
+    <div id="editContainer">
+        <div class="panorama" id="example1"></div>
+        <div>
+            Hotspot text: <input id="labelInput" value="Foobar" />
+            <pre id="config"> </pre>
+
+        </div>
+    </div>
+
 
     <script>
         viewer = pannellum.viewer('example1', {
             "default": {
                 "firstScene": "{{ first_scene }}",
                 "autoLoad": true,
-                "sceneFadeDuration": 500
+                "sceneFadeDuration": 500,
+                "keyboardZoom": false
             },
             "scenes": {
                 {% for scene in scenes %}
@@ -48,21 +63,15 @@
             }
         });
 
-        // For easier generation of hotspots. Nicer output than the normal hotspotDebug mode
-        viewer.on("mousedown", function (event) {
-            let [pitch, yaw] = viewer.mouseEventToCoords(event);
-            yaw = yaw.toFixed(1);
-            pitch = pitch.toFixed(1);
-            console.log(`Click: P:${pitch} Y:${yaw}`);
-        })
-
-        viewer.on("animatefinished", function (position) {
-            yaw = position.yaw.toFixed(1);
-            pitch = position.pitch.toFixed(1);
-            hfov = position.hfov;
-            console.log(`Viewport: P:${pitch} Y:${yaw} FOV:${hfov}°`);
-        })
-
+        hotspots = {
+            {% for scene in scenes %}
+            "{{ scene }}": [],
+            {% endfor %}
+        }
+    </script>
+    <script src="script.js"></script>
+    <script>
+        updateConfig()
     </script>
 
 </body>

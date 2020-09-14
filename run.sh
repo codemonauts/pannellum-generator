@@ -1,13 +1,14 @@
 #! /usr/bin/env bash
 use_cp(){
-    cp $1 $2
+    cp "$1" $2
 }
 
 use_cjpeg(){
-    cjpeg -baseline $1 > $2
+    echo $1
+    cjpeg -baseline "$1" > $2
 }
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
     echo "Please provide the path to the sdcard folder of the camera"
     exit 1
 fi
@@ -18,13 +19,13 @@ COPY_COMMAND="use_cp"
 
 # If we have cjpg installed we can use this to copy the images
 if command -v cjpeg &> /dev/null; then
+    echo "Found cjpeg in your PATH. Will automatically optimize the images"
     COPY_COMMAND="use_cjpeg"
 fi
 
 # Get all stitched images from the sdcard
-for IMG in $(find "$1" -name "pano.jpg"); do
-    echo "Copying $IMG..."
-    $COPY_COMMAND $IMG out/assets/pano-$RANDOM.jpg;
+for IMG in $(find "$1" -name "thumbnail.jpg"); do
+    $COPY_COMMAND "$IMG" out/assets/pano-$RANDOM.jpg;
 done
 
 # Wait for user to rename the images

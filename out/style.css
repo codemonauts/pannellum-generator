@@ -1,0 +1,46 @@
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .button {
+            background: lightskyblue;
+            font-size: 1.2rem;
+            padding: 4px;
+            margin: 2px;
+            border-radius: 3px;
+        }
+
+        .panorama {
+            height: 100%;
+            width: 100%;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        #sceneList {
+            margin-bottom: 10px;
+        }
+
+        #config {
+            background-color: lightgray;
+            margin: 0;
+            font-family: monospace;
+            overflow: auto;
+            width: 30vw;
+            height: 90vh;
+        }
+
+        #editContainer {
+            display: flex;
+            width: 100vw;
+            height: 90vh;
+            overflow: none;
+        }
+
+        #labelInput {
+            font-size: 1.2rem;
+        }
