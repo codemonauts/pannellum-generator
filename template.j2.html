@@ -7,62 +7,97 @@
     <title>Panoramatest</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-    <style>
-        .panorama {
-            width: 90vw;
-            height: 90vh;
-            margin: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <div class="panorama" id="example1"></div>
+    <div id="sceneList">
+        {% for scene in scenes %}
+        <a class="button" onclick="switchTo('{{ scene }}')">{{ scene }}</a>
+        {%- endfor %}
+    </div>
+    <div id="help">
+        <span> Ctrl+Left click to create a hotspot </span>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <label for="input_type">Hotspot Type</label>
+                <select id="input_type" onchange="setHotspotType()">
+                    <option value="info">info</option>
+                    <option value="scene">scene</option>
+                </select>
+                <br />
+
+                <label for="input_yaw">Yaw</label>
+                <input id="input_yaw" />
+                <br />
+
+                <label for="input_pitch">Pitch</label>
+                <input id="input_pitch" />
+                <br />
+
+                <label for="input_text">Text</label>
+                <input id="input_text" />
+                <br />
+
+                <div id="target_scene_picker" style="display: none;">
+                    <label for="input_scene">Target scene</label>
+                    <select id="input_scene">
+                        {% for scene in scenes %}
+                        <option value="{{ scene }}">{{ scene }}</option>
+                        {% endfor %}
+                    </select>
+                    <br />
+                </div>
+                <button onclick="createHotSpot()">Create</button>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="editContainer">
+        <div class="panorama" id="example1">
+            <div id="controls">
+                <div class="ctrl" id="pan-set">Set</div>
+            </div>
+        </div>
+        <div>
+            <pre id="config"> </pre>
+        </div>
+    </div>
+
 
     <script>
         viewer = pannellum.viewer('example1', {
             "default": {
-                "firstScene": "{{ first_scene }}",
+                "firstScene": "assistenz",
                 "autoLoad": true,
-                "sceneFadeDuration": 500
+                "sceneFadeDuration": 500,
+                "keyboardZoom": false,
+                "type": "equirectangular",
             },
             "scenes": {
                 {% for scene in scenes %}
-                "{{ scene }}": {
-                    "type": "equirectangular",
-                    "panorama": "/assets/{{ scene }}.jpg",
-                    "pitch": 0,
+        "{{ scene }}": {
+            "panorama": "/assets/{{ scene }}.jpg",
+                "pitch": 0,
                     "yaw": 0,
-                    "hfov": 100,
-                    "hotSpots": [
-                        {
-                            "pitch": 0,
-                            "yaw": 0,
-                            "type": "scene",
-                            "text": "Test",
-                            "sceneId": "{{first_scene}}"
-                        },
-                    ]
+                        "hfov": 100,
+                            "hotSpots": [],
                 },
-                {% endfor %}
+        {% endfor %}
             }
         });
 
-        // For easier generation of hotspots. Nicer output than the normal hotspotDebug mode
-        viewer.on("mousedown", function (event) {
-            let [pitch, yaw] = viewer.mouseEventToCoords(event);
-            yaw = yaw.toFixed(1);
-            pitch = pitch.toFixed(1);
-            console.log(`Click: P:${pitch} Y:${yaw}`);
-        })
-
-        viewer.on("animatefinished", function (position) {
-            yaw = position.yaw.toFixed(1);
-            pitch = position.pitch.toFixed(1);
-            hfov = position.hfov;
-            console.log(`Viewport: P:${pitch} Y:${yaw} FOV:${hfov}°`);
-        })
-
+    </script>
+    <script src="script.js"></script>
+    <script>
+        updateConfig()
     </script>
 
 </body>
