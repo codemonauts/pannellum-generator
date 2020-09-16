@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panoramatest</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <title>Pannellum Editor</title>
+    <link rel="stylesheet" href="css/pannellum.css" />
+    <script type="text/javascript" src="js/pannellum.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
@@ -25,25 +25,26 @@
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
+                <div id="editor_fields">
+                    <label for="input_type">Hotspot Type</label>
+                    <select id="input_type" onchange="setHotspotType()">
+                        <option value="info">info</option>
+                        <option value="scene">scene</option>
+                    </select>
+                    <br />
 
-                <label for="input_type">Hotspot Type</label>
-                <select id="input_type" onchange="setHotspotType()">
-                    <option value="info">info</option>
-                    <option value="scene">scene</option>
-                </select>
-                <br />
+                    <label for="input_yaw">Yaw</label>
+                    <input id="input_yaw" />
+                    <br />
 
-                <label for="input_yaw">Yaw</label>
-                <input id="input_yaw" />
-                <br />
+                    <label for="input_pitch">Pitch</label>
+                    <input id="input_pitch" />
+                    <br />
 
-                <label for="input_pitch">Pitch</label>
-                <input id="input_pitch" />
-                <br />
-
-                <label for="input_text">Text</label>
-                <input id="input_text" />
-                <br />
+                    <label for="input_text">Text</label>
+                    <input id="input_text" />
+                    <br />
+                </div>
 
                 <div id="target_scene_picker" style="display: none;">
                     <label for="input_scene">Target scene</label>
@@ -75,7 +76,7 @@
     <script>
         viewer = pannellum.viewer('example1', {
             "default": {
-                "firstScene": "assistenz",
+                "firstScene": "{{ first_scene }}",
                 "autoLoad": true,
                 "sceneFadeDuration": 500,
                 "keyboardZoom": false,
@@ -83,22 +84,27 @@
             },
             "scenes": {
                 {% for scene in scenes %}
-        "{{ scene }}": {
-            "panorama": "/assets/{{ scene }}.jpg",
-                "pitch": 0,
+                "{{ scene }}": {
+                    "panorama": "/assets/{{ scene }}.jpg",
+                    "pitch": 0,
                     "yaw": 0,
-                        "hfov": 100,
-                            "hotSpots": [],
+                    "hfov": 100,
+                    "hotSpots": [],
                 },
-        {% endfor %}
+                {% endfor %}
             }
         });
+    </script>
 
-    </script>
-    <script src="script.js"></script>
+    <!-- Local Editor mode -->
+    <script src="js/editor.js"></script>
+
+    <!-- Backend Mode
     <script>
-        updateConfig()
+        const backendURL = "https://url-to-your-api";
     </script>
+    <script src="js/backend.js"></script>
+    -->
 
 </body>
 

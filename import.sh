@@ -23,22 +23,11 @@ if command -v cjpeg &> /dev/null; then
     COPY_COMMAND="use_cjpeg"
 fi
 
-# Get all stitched images from the sdcard
-for IMG in $(find "$1" -name "thumbnail.jpg"); do
+# Find all preview images on the sdcard
+for IMG in $(find "$1" -name "pano.jpg"); do
     $COPY_COMMAND "$IMG" out/assets/pano-$RANDOM.jpg;
 done
 
-# Wait for user to rename the images
-echo "Please rename all images in the 'out/assets/' folder"
-read -p "Press enter to continue"
-
-echo "Generating index.html"
-./generate_html.py
-
-if command -v code &> /dev/null; then
-    echo "Opening generated index.html in VSCode"
-    code out/index.html
-fi
-
-echo "Starting webserver"
-python3 -m http.server --bind 0.0.0.0 --directory out/ 8000
+echo "##########"
+echo "Please rename all images in the 'out/assets/' folder before running the generate script"
+echo "##########"
