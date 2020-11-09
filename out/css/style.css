@@ -45,6 +45,11 @@ body {
     font-size: 1.2rem;
 }
 
+#help{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 
 /* The Modal (background) */
 .modal {

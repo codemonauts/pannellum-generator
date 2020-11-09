@@ -17,7 +17,12 @@
         {%- endfor %}
     </div>
     <div id="help">
-        <span> Ctrl+Left click to create a hotspot </span>
+        <div style="display: inline;"> Ctrl+Left click to create a hotspot </div>
+        <div id="currentPos" style="display:inline; float:right;">Current position in Frame:
+            <b>Pitch:</b> <span id="currentPitch">-</span>
+            <b>Yaw:</b> <span id="currentYaw">-</span>
+            <b>FOV:</b> <span id="currentFOV">-</span>
+        </div>
 
         <!-- The Modal -->
         <div id="myModal" class="modal">

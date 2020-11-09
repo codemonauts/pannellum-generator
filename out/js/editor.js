@@ -1,3 +1,5 @@
+// Hide current Position indicator
+document.getElementById("currentPos").style.display = "none";
 
 // For easier generation of hotspots. Nicer output than the normal hotspotDebug mode
 viewer.on("mousedown", function (event) {
@@ -15,7 +17,7 @@ viewer.on("mousedown", function (event) {
         document.getElementById("target_scene_picker").style.display = "none";
         modal.style.display = "block";
     } else {
-        console.log(`Click: P:${pitch} Y:${yaw}`);
+        console.log(`Click position: P:${pitch} Y:${yaw}`);
     }
 
 })
@@ -50,8 +52,10 @@ function createHotSpot() {
 viewer.on("animatefinished", function (position) {
     yaw = position.yaw.toFixed(1);
     pitch = position.pitch.toFixed(1);
-    hfov = position.hfov;
-    console.log(`Viewport: P:${pitch} Y:${yaw} FOV:${hfov}°`);
+    hfov = position.hfov.toFixed(0);
+    document.getElementById("currentPitch").innerText = pitch;
+    document.getElementById("currentYaw").innerText = yaw;
+    document.getElementById("currentFOV").innerText = hfov;
 })
 
 viewer.on("error", function () {

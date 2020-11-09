@@ -46,6 +46,15 @@ viewer.on("mousedown", function (event) {
 
 })
 
+viewer.on("animatefinished", function (position) {
+    yaw = position.yaw.toFixed(1);
+    pitch = position.pitch.toFixed(1);
+    hfov = position.hfov.toFixed(0);
+    document.getElementById("currentPitch").innerText = pitch;
+    document.getElementById("currentYaw").innerText = yaw;
+    document.getElementById("currentFOV").innerText = hfov;
+})
+
 viewer.on("load", function (event) {
     current_scene = viewer.getScene();
     if (current_scene in hotspots) {
