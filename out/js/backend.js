@@ -33,6 +33,7 @@ viewer.on("mousedown", function (event) {
     let [pitch, yaw] = viewer.mouseEventToCoords(event);
     yaw = yaw.toFixed(1);
     pitch = pitch.toFixed(1);
+    hfov = viewer.getHfov().toFixed(0);
     scene = viewer.getScene();
 
     // CTRL+Click for Hotspot
@@ -41,18 +42,14 @@ viewer.on("mousedown", function (event) {
         document.getElementById("input_yaw").value = yaw;
         document.getElementById("input_pitch").value = pitch;
         document.getElementById("input_text").value = "Test"
+
+        document.getElementById("currentPitch").innerText = pitch;
+        document.getElementById("currentYaw").innerText = yaw;
+        document.getElementById("currentFOV").innerText = hfov;
+
         modal.style.display = "block";
     }
 
-})
-
-viewer.on("animatefinished", function (position) {
-    yaw = position.yaw.toFixed(1);
-    pitch = position.pitch.toFixed(1);
-    hfov = position.hfov.toFixed(0);
-    document.getElementById("currentPitch").innerText = pitch;
-    document.getElementById("currentYaw").innerText = yaw;
-    document.getElementById("currentFOV").innerText = hfov;
 })
 
 viewer.on("load", function (event) {

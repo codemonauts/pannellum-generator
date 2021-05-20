@@ -18,11 +18,6 @@
     </div>
     <div id="help">
         <div style="display: inline;"> Ctrl+Left click to create a hotspot </div>
-        <div id="currentPos" style="display:inline; float:right;">Current position in Frame:
-            <b>Pitch:</b> <span id="currentPitch">-</span>
-            <b>Yaw:</b> <span id="currentYaw">-</span>
-            <b>FOV:</b> <span id="currentFOV">-</span>
-        </div>
 
         <!-- The Modal -->
         <div id="myModal" class="modal">
@@ -31,6 +26,11 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <div id="editor_fields">
+                    <p>
+                        <b>Pitch:</b> <span id="currentPitch">-</span>
+                        <b>Yaw:</b> <span id="currentYaw">-</span>
+                        <b>FOV:</b> <span id="currentFOV">-</span>
+                    </p>
                     <label for="input_type">Hotspot Type</label>
                     <select id="input_type" onchange="setHotspotType()">
                         <option value="info">info</option>
@@ -89,14 +89,14 @@
             },
             "scenes": {
                 {% for scene in scenes %}
-                "{{ scene }}": {
-                    "panorama": "/assets/{{ scene }}.jpg",
-                    "pitch": 0,
+        "{{ scene }}": {
+            "panorama": "/assets/{{ scene }}.jpg",
+                "pitch": 0,
                     "yaw": 0,
-                    "hfov": 100,
-                    "hotSpots": [],
+                        "hfov": 100,
+                            "hotSpots": [],
                 },
-                {% endfor %}
+        {% endfor %}
             }
         });
     </script>
